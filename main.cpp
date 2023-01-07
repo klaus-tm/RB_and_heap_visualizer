@@ -1,10 +1,5 @@
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <windows.h>
-#include <conio.h>
-#include <time.h>
-#include "RbTree.h"
+#include <bits/stdc++.h>
+#include "RBTree.cpp"
 using namespace std;
 
 void cooldown(int seconds){
@@ -16,29 +11,43 @@ void cooldown(int seconds){
         elapsed = clock() - start;
     }while(elapsed < period);
 }
+void getKeys(list<int>& keys){
+    cout<<"Te rog insereaza chei: ";
+    int cheie;
+    while(cin>>cheie){
+        keys.push_back(cheie);
+    }
+    cin.clear();
+    cin.ignore();
+}
 
 int main() {
-    RBTree* RB = new RBTree();
     while(1){
         int choice;
         system("CLS");
-        cout <<"~~~~~~~~~~~~~Proiect sda - vizualizator RB tree si Heap~~~~~~~~~~~~~\n"
-             <<"====================================================================\n"
-             <<"1. Vizualizator RB;\n"
-             <<"2. Vizualizator Heap;\n"
-             <<"3. Inchide programul;\n"
-             <<"====================================================================\n"
-             <<"Selecteaza ce vrei sa faci: ";
+        cout<<"~~~~~~~~~~~~~Proiect sda - vizualizator RB tree si Heap~~~~~~~~~~~~~\n"
+            <<"====================================================================\n"
+            <<"1. Vizualizator RB;\n"
+            <<"2. Vizualizator Heap;\n"
+            <<"3. Inchide programul;\n"
+            <<"====================================================================\n"
+            <<"Selecteaza ce vrei sa faci: ";
         cin >> choice;
 
         if(choice == 1){
             system("CLS");
-            cout <<"~~~~~~~~~~~~~Vizualizator RB tree~~~~~~~~~~~~~\n"
-                 <<"==============================================\n"
-                 <<"Te rog insereaza noduri:\n";
-            cout <<"Acesta este arborele tau:\n";
-            cout <<"==============================================\n"
-                 <<"Mai apasa o data ca sa te intorci la meniu.\n";
+            RBTree tree;
+            list<int> chei;
+            cout<<"~~~~~~~~~~~~~Vizualizator RB tree~~~~~~~~~~~~~\n"
+                <<"==============================================\n"
+                <<"Pentru a te opri din citit incerca CTRL+Z sau introdu o litera\n"<<flush;
+            getKeys(chei);
+            for(auto i = chei.begin(); i != chei.end(); i++)
+                tree.insert(*i);
+            cout<<"\nAcesta este arborele tau:\n";
+            tree.disp();
+            cout<<"==============================================\n"
+                <<"Mai apasa o data ca sa te intorci la meniu.\n";
             system("PAUSE");
         }
 
@@ -59,9 +68,9 @@ int main() {
             return 0;
         }
 
-        else if(choice < 1 or choice > 3){
+        else{
             cout <<"\nIntrodu un numar valid te rog\n";
-            system("PAUSE");
+            cooldown(3);
         }
     }
 }

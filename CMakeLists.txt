@@ -3,4 +3,4 @@ project(proiect_sda)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(proiect_sda main.cpp RbTree.h)
+add_executable(proiect_sda main.cpp RBTree.cpp)
