@@ -9,6 +9,7 @@ struct node{
     char color;
 };
 class RBTree{
+private:
     node *root;
 public:
     RBTree(){
@@ -16,14 +17,12 @@ public:
     }
 
     void insert(int k){
-        node *p, *q;
+        node *temp = root, *copy = NULL;
         node *t = new node;
         t->key = k;
         t->left = NULL;
         t->right = NULL;
         t->color = 'r';
-        p = root;
-        q = NULL;
         if(root == NULL)
         {
             root = t;
@@ -31,25 +30,25 @@ public:
         }
         else
         {
-            while(p != NULL)
+            while(temp != NULL)
             {
-                q = p;
-                if(p->key < t->key)
-                    p = p->right;
+                copy = temp;
+                if(temp->key < t->key)
+                    temp = temp->right;
                 else
-                    p = p->left;
+                    temp = temp->left;
             }
-            t->parent = q;
-            if(q->key < t->key)
-                q->right = t;
+            t->parent = copy;
+            if(copy->key < t->key)
+                copy->right = t;
             else
-                q->left = t;
+                copy->left = t;
         }
         insertFix(t);
     }
 
     void insertFix(node *n){
-        node *u;
+        node *uncle;
         if(root == n)
         {
             n->color = 'b';
@@ -57,18 +56,18 @@ public:
         }
         while(n->parent!=NULL and n->parent->color == 'r')
         {
-            node *g = n->parent->parent;
-            if(g->left == n->parent)
+            node *grandparent = n->parent->parent;
+            if(grandparent->left == n->parent)
             {
-                if(g->right != NULL)
+                if(grandparent->right != NULL)
                 {
-                    u = g->right;
-                    if(u->color == 'r')
+                    uncle = grandparent->right;
+                    if(uncle->color == 'r')
                     {
                         n->parent->color = 'b';
-                        u->color='b';
-                        g->color='r';
-                        n = g;
+                        uncle->color='b';
+                        grandparent->color='r';
+                        n = grandparent;
                     }
                 }
                 else
@@ -79,21 +78,21 @@ public:
                         leftRotate(n);
                     }
                     n->parent->color = 'b';
-                    g->color = 'r';
-                    rightRotate(g);
+                    grandparent->color = 'r';
+                    rightRotate(grandparent);
                 }
             }
             else
             {
-                if(g->left != NULL)
+                if(grandparent->left != NULL)
                 {
-                    u = g->left;
-                    if(u->color == 'r')
+                    uncle = grandparent->left;
+                    if(uncle->color == 'r')
                     {
                         n->parent->color = 'b';
-                        u->color = 'b';
-                        g->color = 'r';
-                        n = g;
+                        uncle->color = 'b';
+                        grandparent->color = 'r';
+                        n = grandparent;
                     }
                 }
                 else
@@ -104,8 +103,8 @@ public:
                         rightRotate(n);
                     }
                     n->parent->color = 'b';
-                    g->color = 'r';
-                    leftRotate(g);
+                    grandparent->color = 'r';
+                    leftRotate(grandparent);
                 }
             }
             root->color = 'b';

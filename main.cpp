@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "RBTree.cpp"
+#include "Heap.cpp"
 using namespace std;
 
 void cooldown(int seconds){
@@ -53,11 +54,27 @@ int main() {
 
         else if(choice == 2){
             system("CLS");
+            Heap tree;
+            list<int> chei;
+            int minMax;
             cout <<"~~~~~~~~~~~~~Vizualizator Heap tree~~~~~~~~~~~~~\n"
                  <<"==============================================\n"
-                 <<"Te rog insereaza noduri:\n";
+                 <<"Pentru a te opri din citit incerca CTRL+Z sau introdu o litera\n"<<flush;
+            getKeys(chei);
+            while(minMax != 1 and minMax != 2){
+                cout<<"Ce fel de heap vrei sa vezi?\n"
+                    <<"1. Min Heap\n"
+                    <<"2. Max Heap\n"
+                    <<"Alegerea ta: ";
+                cin >> minMax;
+                if(minMax == 1 or minMax == 2)
+                    for(auto i = chei.begin(); i != chei.end(); i++)
+                        tree.insert(*i, minMax);
+                else cout<<"Introdu 1 sau 2. Mai incearca o data\n";
+            }
             cout <<"Acesta este arborele tau:\n";
-            cout <<"==============================================\n"
+            tree.displayHeap();
+            cout <<"\n==============================================\n"
                  <<"Mai apasa o data ca sa te intrci la meniu.\n";
             system("PAUSE");
         }
