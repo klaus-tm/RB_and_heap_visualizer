@@ -13,10 +13,10 @@ void cooldown(int seconds){
     }while(elapsed < period);
 }
 void getKeys(list<int>& keys){
-    cout<<"Te rog insereaza chei: ";
-    int cheie;
-    while(cin>>cheie){
-        keys.push_back(cheie);
+    cout<<"Insert keys: ";
+    int key;
+    while(cin>>key){
+        keys.push_back(key);
     }
     cin.clear();
     cin.ignore();
@@ -26,67 +26,73 @@ int main() {
     while(1){
         int choice;
         system("CLS");
-        cout<<"~~~~~~~~~~~~~Proiect sda - vizualizator RB tree si Heap~~~~~~~~~~~~~\n"
-            <<"====================================================================\n"
-            <<"1. Vizualizator RB;\n"
-            <<"2. Vizualizator Heap;\n"
-            <<"3. Inchide programul;\n"
-            <<"====================================================================\n"
-            <<"Selecteaza ce vrei sa faci: ";
+        cout<<"~~~~~~~~~~~~~Proiect sda - RB tree and Heap visualization~~~~~~~~~~~~~\n"
+            <<"======================================================================\n"
+            <<"1. RB tree visualization;\n"
+            <<"2. Heap tree visualization;\n"
+            <<"3. Close app;\n"
+            <<"======================================================================\n"
+            <<"Insert your choice: ";
         cin >> choice;
 
         if(choice == 1){
             system("CLS");
             RBTree tree;
-            list<int> chei;
-            cout<<"~~~~~~~~~~~~~Vizualizator RB tree~~~~~~~~~~~~~\n"
-                <<"==============================================\n"
-                <<"Pentru a te opri din citit incerca CTRL+Z sau introdu o litera\n"<<flush;
-            getKeys(chei);
-            for(auto i = chei.begin(); i != chei.end(); i++)
+            list<int> keys;
+            cout<<"~~~~~~~~~~~~~RB tree visualization~~~~~~~~~~~~~\n"
+                <<"===============================================\n"
+                <<"In order to stop inserting try CTRL+Z or insert a letter\n"<<flush;
+            getKeys(keys);
+            for(auto i = keys.begin(); i != keys.end(); i++)
                 tree.insert(*i);
-            cout<<"\nAcesta este arborele tau:\n";
+            cout<<"\nThis is your tree:\n";
             tree.disp();
-            cout<<"==============================================\n"
-                <<"Mai apasa o data ca sa te intorci la meniu.\n";
+            cout<<"===============================================\n"
+                <<"Press again in order to go back to the menu.\n";
             system("PAUSE");
         }
 
         else if(choice == 2){
             system("CLS");
             Heap tree;
-            list<int> chei;
+            list<int> keys;
             int minMax;
-            cout <<"~~~~~~~~~~~~~Vizualizator Heap tree~~~~~~~~~~~~~\n"
-                 <<"==============================================\n"
-                 <<"Pentru a te opri din citit incerca CTRL+Z sau introdu o litera\n"<<flush;
-            getKeys(chei);
+            cout <<"~~~~~~~~~~~~~Heap tree visualization~~~~~~~~~~~~~\n"
+                 <<"=================================================\n"
+                 <<"In order to stop inserting try CTRL+Z or insert a letter\n"<<flush;
+            getKeys(keys);
             while(minMax != 1 and minMax != 2){
-                cout<<"Ce fel de heap vrei sa vezi?\n"
+                cout<<"What kind of Heap tree you want to see?\n"
                     <<"1. Min Heap\n"
                     <<"2. Max Heap\n"
-                    <<"Alegerea ta: ";
+                    <<"Insert your choice: ";
                 cin >> minMax;
                 if(minMax == 1 or minMax == 2)
-                    for(auto i = chei.begin(); i != chei.end(); i++)
+                    for(auto i = keys.begin(); i != keys.end(); i++)
                         tree.insert(*i, minMax);
-                else cout<<"Introdu 1 sau 2. Mai incearca o data\n";
+                else cout<<"Please insert 1 or 2. Try again.\n";
             }
-            cout <<"Acesta este arborele tau:\n";
+            cout <<"This is your tree:\n";
             tree.displayHeap();
-            cout <<"\n==============================================\n"
-                 <<"Mai apasa o data ca sa te intrci la meniu.\n";
+            cout <<"\n=================================================\n"
+                 <<"Press again in order to go back to the menu.\n";
             system("PAUSE");
         }
 
         else if(choice == 3){
-            cout <<"\nSe inchide aplicatia...\n";
-            cooldown(3);
+            cout<<"\nClosing the app";
+            cooldown(1);
+            cout<<".";
+            cooldown(1);
+            cout<<".";
+            cooldown(1);
+            cout<<".";
+            cooldown(1);
             return 0;
         }
 
         else{
-            cout <<"\nIntrodu un numar valid te rog\n";
+            cout <<"\nTry a valid input please.\n";
             cooldown(3);
         }
     }
